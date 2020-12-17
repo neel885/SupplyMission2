@@ -53,9 +53,22 @@ function setup() {
 
 	Engine.run(engine);
 
-	hand1 = new RedZone(465,610,20,100)
-	hand2 = new RedZone(315,610,20,100)
-	Base = new RedZone(390 , 650,120,20) 
+	boxPosition=width/2-100
+	  boxY=610;
+	  boxleftSprite=createSprite(boxPosition, boxY, 20,100); 
+	  boxleftSprite.shapeColor=color(255,0,0); 
+	  boxLeftBody = Bodies.rectangle(boxPosition+20, boxY, 20,100 , {isStatic:true} ); 
+	  World.add(world, boxLeftBody);
+	  boxBase=createSprite(boxPosition+100, boxY+40, 200,20); 
+	  boxBase.shapeColor=color(255,0,0); 
+	  boxBottomBody = Bodies.rectangle(boxPosition+100, boxY+45-20, 200,20 , {isStatic:true} ); 
+	  World.add(world, boxBottomBody); 
+	  boxleftSprite=createSprite(boxPosition+200 , boxY, 20,100); 
+	  boxleftSprite.shapeColor=color(255,0,0); 
+	  boxRightBody = Bodies.rectangle(boxPosition+200-20 , boxY, 20,100 , {isStatic:true} ); 
+	  World.add(world, boxRightBody);
+
+	Engine.run(engine);
   
 }
 
@@ -66,28 +79,34 @@ function draw() {
   packageSprite.x= packageBody.position.x 
   packageSprite.y= packageBody.position.y 
   
-  hand1.display();
-  hand2.display();
-  Base.display(); 
+   
 
 
-  drawSprites();
-
+  drawSprites()
+  
 
  
 }
 
-function keyPressed() {
- if (keyCode === DOWN_ARROW)
-  {
-	   
-	Matter.Body.setStatic(packageBody,false);
-		  
-		  
-	   
-    
-  }
-}
+function keyPressed() 
+{
+	if (keyCode === LEFT_ARROW)
+	 {
+		  helicopterSprite.x=helicopterSprite.x-20;
+		  translation={x:-20,y:0}
+		  Matter.Body.translate(packageBody, translation) 
+	 }
+			 
+		  else if (keyCode === RIGHT_ARROW)
+		  {
+			helicopterSprite.x=helicopterSprite.x+20;
+			translation={x:20,y:0}
+			Matter.Body.translate(packageBody, translation)
+		  } 
+		  else if (keyCode === DOWN_ARROW)
+		  {
+		  Matter.Body.setStatic(packageBody,false)
+		  }
+		  }
 
-
-
+                                                                            
